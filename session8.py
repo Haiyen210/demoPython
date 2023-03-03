@@ -39,7 +39,7 @@ def delete_employee(id,con):
 def search_employee(name,con):
     con = connect_mysql()
     cursor = con.cursor()
-    count = cursor.execute("select * from tbl_Employee where FullName=%s",(name,))
+    cursor.execute("select * from tbl_Employee where FullName Like %s",('%'+name+'%',))
     myresult = cursor.fetchall()
     if(myresult):
         print("---------------Danh sách nhân viên--------------")
