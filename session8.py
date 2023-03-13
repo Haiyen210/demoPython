@@ -1,7 +1,48 @@
 # import thư viện
 import mysql.connector
 import datetime
-# kết nối tới mysql và làm việc với
+
+
+# Khởi tạo List trong python
+
+cities= ['Hà Nội','Hải Dương','Đà nẵng','TPHCM']
+# Lưu vào tệp tin
+fw = open("cities.txt", "w",encoding="utf-8")
+for l in cities:
+    print(l)
+    fw.write(l+"\n")
+fw.close()
+# mở đọc dữ liệu từng dòng
+with open("cities.txt","r",encoding="utf-8") as f:
+    line=f.readline()
+    while not line:
+        print(line,end="")
+        line=f.readline()
+
+# Đề 2
+# liệu, tạo tệp tin nếu không tồn tại
+fw = open("demofile.txt", "wt",encoding="utf-8")
+fw.writelines(cities)
+fw.close()
+# mở tệp tin để đọc
+fr=open("demofile.txt","r",encoding="utf-8")
+cities = fr.read()
+print(cities)
+fr.close()
+#mở tệp tin để đọc với lệnh with (tự đóng)
+with open("demofile.txt",encoding="utf-8") as f:
+   c=f.read()
+   print(c)
+
+a = input("Nhập tên khóa học:")
+city = []
+if a in cities:
+    print("Lỗi! đã tồn tại")
+else:
+    city.append(a)
+    print(cities)
+
+
 def connect_mysql():
     con=mysql.connector.connect(
         host="localhost",
@@ -94,6 +135,7 @@ while(True):
         name = input("Nhập tên nhân viên muốn tìm:")
         search_employee(name,con)
     elif(choose == "6"):
+        con.close()
         break
     else:
         print("Bạn chọn sai rồi")
